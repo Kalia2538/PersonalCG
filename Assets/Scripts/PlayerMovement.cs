@@ -1,74 +1,49 @@
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Rider.Unity.Editor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float speed;
-    public float rotationSpeed;
+    [SerializeField] private float speed = 1000f;
+    [SerializeField] private float rotationSpeed = 100f;
 
     private Vector2 movementValue;
-    private float lookValue;
+    private Vector2 lookValue;
+    private Rigidbody rb;
     // Start is called before the first frame update
     private void Awake()
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+        //rb = GetComponent<Rigidbody>();
+    }
+
+    void Start() // ERROR PROBABLY HERE
+    {
+        rb = GetComponent<Rigidbody>();
     }
 
     public void OnMove(InputValue value)
     {
-        movementValue = value.Get<Vector2>() * speed;
+        movementValue = value.Get<Vector2>();//* speed
     }
 
     public void OnLook(InputValue value)
     {
-        lookValue = value.Get<Vector2>().x * rotationSpeed;
+        lookValue = value.Get<Vector2>() ; //* rotationSpeed
     }
 
-    void Update()
-    {
-        transform.Translate(
-            movementValue.x * Time.deltaTime,
-            0,
-            movementValue.y * Time.deltaTime);
-
-        transform.Rotate(0, lookValue * Time.deltaTime, 0);
-    }
-    private void Start()
-    {
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
-    }
+  
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        // PlayerMovement: Keys (arrows and wasd)
-        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
-        {
-            transform.Translate(0, 0, speed * Time.deltaTime);
-        }
-
-        if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
-        {
-            transform.Translate(0, 0, -speed * Time.deltaTime);
-        }
-
-        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
-        {
-            transform.Translate(-speed * Time.deltaTime, 0, 0);
-        }
-
-        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
-        {
-            transform.Translate(speed * Time.deltaTime, 0, 0);
-        }
-
-        float mouseX = Input.GetAxis("Mouse X");
-        transform.Rotate(0, mouseX * rotationSpeed * Time.deltaTime, 0);
-
+        Vector3 force = new Vector3(movementValue.x, 0, movementValue.y) * speed * Time.deltaTime;
+        rb.AddRelativeForce(force);
+        float torque = lookValue.x * rotationSpeed * Time.deltaTime;
+        rb.AddRelativeTorque(0, torque, 0);
     }
 }

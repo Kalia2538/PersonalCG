@@ -17,7 +17,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &2133533869386142352
 Transform:
@@ -118,6 +118,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Flying Enemy Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 180676598728913745, guid: b412c27812d90764da33eb4a146c4908,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 4132151185911491590, guid: b412c27812d90764da33eb4a146c4908,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 4517465799091051368, guid: b412c27812d90764da33eb4a146c4908,
         type: 3}
       propertyPath: m_UseGravity
@@ -172,6 +182,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8927593179646681558, guid: b412c27812d90764da33eb4a146c4908,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
